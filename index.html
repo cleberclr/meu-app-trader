@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Trader Esportivo</title>
+    <script src="https://tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-gray-100 font-sans min-h-screen p-4">
+
+    <div class="max-w-md mx-auto space-y-6">
+        <!-- Cabeçalho -->
+        <header class="text-center py-4 border-b border-gray-800">
+            <h1 class="text-2xl font-bold text-green-400">📊 Trader Stats Pro</h1>
+            <p class="text-xs text-gray-400">Gestão e Cálculos em Tempo Real</p>
+        </header>
+
+        <!-- Seção: Gestão de Banca -->
+        <section class="bg-gray-800 p-5 rounded-xl shadow-lg border border-gray-700">
+            <h2 class="text-lg font-semibold mb-3 flex items-center gap-2">💰 Gestão de Banca</h2>
+            <div class="space-y-3">
+                <div>
+                    <label class="block text-xs text-gray-400 mb-1">Banca Total (R$)</label>
+                    <input type="number" id="bancaTotal" value="1000" class="w-full bg-gray-700 border border-gray-600 rounded p-2 text-white focus:outline-none focus:border-green-500" oninput="calcularBanca()">
+                </div>
+                <div class="grid grid-cols-2 gap-3 pt-2">
+                    <div class="bg-gray-900 p-3 rounded text-center border border-gray-700">
+                        <span class="block text-xs text-gray-400">1 Unidade (1%)</span>
+                        <strong class="text-lg text-green-400" id="valUnidade">R$ 10,00</strong>
+                    </div>
+                    <div class="bg-gray-900 p-3 rounded text-center border border-gray-700">
+                        <span class="block text-xs text-gray-400">Stop Loss (5%)</span>
+                        <strong class="text-lg text-red-400" id="valStop">R$ 50,00</strong>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção: Calculadora de Retorno (Odds) -->
+        <section class="bg-gray-800 p-5 rounded-xl shadow-lg border border-gray-700">
+            <h2 class="text-lg font-semibold mb-3 flex items-center gap-2">🧮 Calculadora de Investimento</h2>
+            <div class="grid grid-cols-2 gap-3 mb-3">
+                <div>
+                    <label class="block text-xs text-gray-400 mb-1">Valor da Stake (R$)</label>
+                    <input type="number" id="stake" value="50" class="w-full bg-gray-700 border border-gray-600 rounded p-2 text-white focus:outline-none focus:border-green-500" oninput="calcularRetorno()">
+                </div>
+                <div>
+                    <label class="block text-xs text-gray-400 mb-1">Odd do Evento</label>
+                    <input type="number" id="odd" value="1.85" step="0.01" class="w-full bg-gray-700 border border-gray-600 rounded p-2 text-white focus:outline-none focus:border-green-500" oninput="calcularRetorno()">
+                </div>
+            </div>
+            <div class="bg-gray-950 p-4 rounded border border-gray-800 space-y-2 text-sm">
+                <div class="flex justify-between">
+                    <span class="text-gray-400">Retorno Bruto:</span>
+                    <span class="font-medium text-white" id="retornoBruto">R$ 92,50</span>
+                </div>
+                <div class="flex justify-between border-t border-gray-800 pt-2">
+                    <span class="text-gray-400">Lucro Líquido (Green):</span>
+                    <span class="font-bold text-green-400" id="lucroliquido">R$ 42,50</span>
+                </div>
+            </div>
+        </section>
+
+        <footer class="text-center text-xs text-gray-500 pt-4">
+            <p>Calculado localmente no seu dispositivo.</p>
+        </footer>
+    </div>
+
+    <script>
+        function calcularBanca() {
+            const banca = parseFloat(document.getElementById('bancaTotal').value) || 0;
+            const unidade = banca * 0.01;
+            const stop = banca * 0.05;
+
+            document.getElementById('valUnidade').innerText = `R$ ${unidade.toFixed(2).replace('.', ',')}`;
+            document.getElementById('valStop').innerText = `R$ ${stop.toFixed(2).replace('.', ',')}`;
+        }
+
+        function calcularRetorno() {
+            const stake = parseFloat(document.getElementById('stake').value) || 0;
+            const odd = parseFloat(document.getElementById('odd').value) || 0;
+
+            const bruto = stake * odd;
+            const liquido = bruto - stake;
+
+            document.getElementById('retornoBruto').innerText = `R$ ${bruto.toFixed(2).replace('.', ',')}`;
+            document.getElementById('lucroliquido').innerText = `R$ ${liquido > 0 ? liquido.toFixed(2).replace('.', ',') : '0,00'}`;
+        }
+    </script>
+</body>
+</html>
