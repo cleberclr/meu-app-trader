@@ -3,77 +3,108 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard CLR Trader Esportivo</title>
+    <title>Trader Stats Pro - Dashboard Premium</title>
+    <!-- Tailwind CSS e Google Fonts integrados -->
     <script src="https://tailwindcss.com"></script>
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #0b0f19; }
+        .glass-card { background: rgba(17, 24, 39, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.06); }
+        .neon-border-green { box-shadow: 0 0 15px rgba(34, 197, 94, 0.15); border-left: 4px solid #22c55e; }
+        .neon-border-blue { box-shadow: 0 0 15px rgba(59, 130, 246, 0.15); border-left: 4px solid #3b82f6; }
+    </style>
 </head>
-<body class="bg-gray-900 text-gray-100 font-sans min-h-screen p-4">
+<body class="text-gray-100 min-h-screen antialiased flex flex-col justify-between">
 
-    <div class="max-w-md mx-auto space-y-6">
-        <!-- Cabeçalho -->
-        <header class="text-center py-4 border-b border-gray-800">
-            <h1 class="text-2xl font-bold text-green-400">📊 Trader Stats Pro</h1>
-            <p class="text-xs text-gray-400">Gestão e Cálculos em Tempo Real</p>
+    <div class="w-full max-w-md mx-auto px-4 py-6 space-y-6">
+        <!-- Header Futurista -->
+        <header class="flex items-center justify-between pb-4 border-b border-gray-800/60">
+            <div>
+                <span class="text-[10px] font-bold tracking-widest text-emerald-400 uppercase bg-emerald-500/10 px-2 py-0.5 rounded-full">Live Stats</span>
+                <h1 class="text-2xl font-extrabold tracking-tight bg-gradient-to-r from-white via-gray-200 to-gray-500 bg-clip-text text-transparent mt-1">TRADER<span class="text-emerald-400">PRO</span></h1>
+            </div>
+            <div class="h-2 w-2 bg-emerald-400 rounded-full animate-pulse shadow-[0_0_8px_#34d399]"></div>
         </header>
 
         <!-- Seção: Gestão de Banca -->
-        <section class="bg-gray-800 p-5 rounded-xl shadow-lg border border-gray-700">
-            <h2 class="text-lg font-semibold mb-3 flex items-center gap-2">💰 Gestão de Banca</h2>
-            <div class="space-y-3">
-                <div>
-                    <label class="block text-xs text-gray-400 mb-1">Banca Total (R$)</label>
-                    <input type="number" id="bancaTotal" value="1000" class="w-full bg-gray-700 border border-gray-600 rounded p-2 text-white focus:outline-none focus:border-green-500" oninput="calcularBanca()">
+        <main class="space-y-5">
+            <section class="glass-card neon-border-green p-5 rounded-2xl transition-all duration-300 hover:border-gray-700">
+                <div class="flex items-center gap-2 mb-4">
+                    <span class="p-1.5 bg-emerald-500/10 rounded-lg text-emerald-400 text-lg">💰</span>
+                    <h2 class="text-sm font-bold uppercase tracking-wider text-gray-300">Gestão de Banca</h2>
                 </div>
-                <div class="grid grid-cols-2 gap-3 pt-2">
-                    <div class="bg-gray-900 p-3 rounded text-center border border-gray-700">
-                        <span class="block text-xs text-gray-400">1 Unidade (1%)</span>
-                        <strong class="text-lg text-green-400" id="valUnidade">R$ 10,00</strong>
+                
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-400 mb-1.5">Banca Total Configurada</label>
+                        <div class="relative">
+                            <span class="absolute left-3 top-2.5 text-gray-500 font-medium text-sm">R$</span>
+                            <input type="number" id="bancaTotal" value="1000" class="w-full bg-gray-900/60 border border-gray-800 rounded-xl py-2.5 pl-9 pr-4 text-white font-semibold text-lg focus:outline-none focus:ring-2 focus:ring-emerald-500/40 focus:border-emerald-500 transition-all" oninput="calcularBanca()">
+                        </div>
                     </div>
-                    <div class="bg-gray-900 p-3 rounded text-center border border-gray-700">
-                        <span class="block text-xs text-gray-400">Stop Loss (5%)</span>
-                        <strong class="text-lg text-red-400" id="valStop">R$ 50,00</strong>
+                    
+                    <div class="grid grid-cols-2 gap-3 pt-1">
+                        <div class="bg-gray-900/40 border border-gray-800/80 p-3 rounded-xl">
+                            <span class="block text-[11px] font-medium text-gray-400 mb-0.5">1 Unidade (1%)</span>
+                            <strong class="text-xl font-bold text-emerald-400 tracking-tight" id="valUnidade">R$ 10,00</strong>
+                        </div>
+                        <div class="bg-gray-900/40 border border-gray-800/80 p-3 rounded-xl">
+                            <span class="block text-[11px] font-medium text-gray-400 mb-0.5">Stop Loss (5%)</span>
+                            <strong class="text-xl font-bold text-rose-400 tracking-tight" id="valStop">R$ 50,00</strong>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- Seção: Calculadora de Retorno (Odds) -->
-        <section class="bg-gray-800 p-5 rounded-xl shadow-lg border border-gray-700">
-            <h2 class="text-lg font-semibold mb-3 flex items-center gap-2">🧮 Calculadora de Investimento</h2>
-            <div class="grid grid-cols-2 gap-3 mb-3">
-                <div>
-                    <label class="block text-xs text-gray-400 mb-1">Valor da Stake (R$)</label>
-                    <input type="number" id="stake" value="50" class="w-full bg-gray-700 border border-gray-600 rounded p-2 text-white focus:outline-none focus:border-green-500" oninput="calcularRetorno()">
+            <!-- Seção: Calculadora de Investimento -->
+            <section class="glass-card neon-border-blue p-5 rounded-2xl transition-all duration-300 hover:border-gray-700">
+                <div class="flex items-center gap-2 mb-4">
+                    <span class="p-1.5 bg-blue-500/10 rounded-lg text-blue-400 text-lg">🧮</span>
+                    <h2 class="text-sm font-bold uppercase tracking-wider text-gray-300">Calculadora de Entrada</h2>
                 </div>
-                <div>
-                    <label class="block text-xs text-gray-400 mb-1">Odd do Evento</label>
-                    <input type="number" id="odd" value="1.85" step="0.01" class="w-full bg-gray-700 border border-gray-600 rounded p-2 text-white focus:outline-none focus:border-green-500" oninput="calcularRetorno()">
+                
+                <div class="grid grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-400 mb-1.5">Sua Stake (R$)</label>
+                        <input type="number" id="stake" value="50" class="w-full bg-gray-900/60 border border-gray-800 rounded-xl p-2.5 text-white font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500 transition-all" oninput="calcularRetorno()">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-400 mb-1.5">Odd do Evento</label>
+                        <input type="number" id="odd" value="1.85" step="0.01" class="w-full bg-gray-900/60 border border-gray-800 rounded-xl p-2.5 text-white font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500 transition-all" oninput="calcularRetorno()">
+                    </div>
                 </div>
-            </div>
-            <div class="bg-gray-950 p-4 rounded border border-gray-800 space-y-2 text-sm">
-                <div class="flex justify-between">
-                    <span class="text-gray-400">Retorno Bruto:</span>
-                    <span class="font-medium text-white" id="retornoBruto">R$ 92,50</span>
+                
+                <div class="bg-gray-950/80 border border-gray-900 rounded-xl p-4 space-y-2.5">
+                    <div class="flex justify-between items-center text-xs">
+                        <span class="text-gray-400 font-medium">Retorno Bruto Estimado</span>
+                        <span class="font-semibold text-gray-200 text-sm" id="retornoBruto">R$ 92,50</span>
+                    </div>
+                    <div class="flex justify-between items-center border-t border-gray-900 pt-2.5">
+                        <span class="text-xs text-gray-400 font-medium">Lucro Líquido (Green)</span>
+                        <span class="text-xl font-black text-emerald-400 tracking-tight" id="lucroliquido">R$ 42,50</span>
+                    </div>
                 </div>
-                <div class="flex justify-between border-t border-gray-800 pt-2">
-                    <span class="text-gray-400">Lucro Líquido (Green):</span>
-                    <span class="font-bold text-green-400" id="lucroliquido">R$ 42,50</span>
-                </div>
-            </div>
-        </section>
-
-        <footer class="text-center text-xs text-gray-500 pt-4">
-            <p>Calculado localmente no seu dispositivo.</p>
-        </footer>
+            </section>
+        </main>
     </div>
 
+    <!-- Rodapé Premium -->
+    <footer class="w-full text-center py-4 border-t border-gray-900 bg-gray-950/20">
+        <p class="text-[10px] tracking-wider text-gray-500 uppercase font-medium">Painel Seguro • Operações Locais Encriptadas</p>
+    </footer>
+
+    <!-- Lógica JavaScript Atualizada -->
     <script>
+        function formatarMoeda(valor) {
+            return `R$ ${valor.toFixed(2).replace('.', ',')}`;
+        }
+
         function calcularBanca() {
             const banca = parseFloat(document.getElementById('bancaTotal').value) || 0;
-            const unidade = banca * 0.01;
-            const stop = banca * 0.05;
-
-            document.getElementById('valUnidade').innerText = `R$ ${unidade.toFixed(2).replace('.', ',')}`;
-            document.getElementById('valStop').innerText = `R$ ${stop.toFixed(2).replace('.', ',')}`;
+            document.getElementById('valUnidade').innerText = formatarMoeda(banca * 0.01);
+            document.getElementById('valStop').innerText = formatarMoeda(banca * 0.05);
         }
 
         function calcularRetorno() {
@@ -83,9 +114,10 @@
             const bruto = stake * odd;
             const liquido = bruto - stake;
 
-            document.getElementById('retornoBruto').innerText = `R$ ${bruto.toFixed(2).replace('.', ',')}`;
-            document.getElementById('lucroliquido').innerText = `R$ ${liquido > 0 ? liquido.toFixed(2).replace('.', ',') : '0,00'}`;
+            document.getElementById('retornoBruto').innerText = formatarMoeda(bruto);
+            document.getElementById('lucroliquido').innerText = formatarMoeda(liquido > 0 ? liquido : 0);
         }
     </script>
 </body>
 </html>
+
